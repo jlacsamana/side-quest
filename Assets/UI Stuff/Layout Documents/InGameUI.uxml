@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="QuestIcon" style="background-image: url(&apos;project://database/Assets/UI%20Stuff/PNGS/Quest%20Button%201.png?fileID=2800000&amp;guid=66160fa069aaf534c9964a1452add4ec&amp;type=3#Quest Button 1&apos;); width: 10%; height: 10%; margin-left: 86%; margin-top: 5%;" />
+</ui:UXML>
