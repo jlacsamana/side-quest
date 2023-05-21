@@ -44,10 +44,12 @@ public class NavController : MonoBehaviour
     [SerializeField]
     UIDocument questCompleted;
 
-
+    public Quest currentQuestSelectedInView;
 
     private void Awake()
     {
+        currentQuestSelectedInView = null;
+
         startBtn = startMenu.rootVisualElement.Q("StartButton") as Button;
         startBtn.clicked += StartBtnClicked;
 
@@ -63,7 +65,7 @@ public class NavController : MonoBehaviour
         acceptQuest = questAccept.rootVisualElement.Q("StartButton") as Button;
         acceptQuest.clicked += AcceptQuest;
 
-        dismissQuestView = questMenu.rootVisualElement.Q("BackButton") as Button;
+        dismissQuestView = questMenu.rootVisualElement.Q("AbandonButton") as Button;
         dismissQuestView.clicked += AbandonQuest;
 
         continueQuest = questMenu.rootVisualElement.Q("ContinueButton") as Button;
@@ -101,7 +103,9 @@ public class NavController : MonoBehaviour
         else
         {
             //show quest data
-            questAccept.rootVisualElement.Q("QuestView").style.visibility = Visibility.Visible;
+            questMenu.rootVisualElement.Q("QuestView").style.visibility = Visibility.Visible;
+            (questMenu.rootVisualElement.Q("GPT_TITLE") as Label).text = GetComponent<PlayerData>().GetCurrentQuest().questTitle;
+            (questMenu.rootVisualElement.Q("GPT_TXT") as Label).text = GetComponent<PlayerData>().GetCurrentQuest().questDescription;
 
         }
     }
@@ -109,6 +113,14 @@ public class NavController : MonoBehaviour
     void AcknowledgeBeingDumb()
     {
         noQuestTaken.rootVisualElement.Q("NoQuestAlert").style.visibility = Visibility.Hidden;
+    }
+
+    public void UpdateAcceptQuestData(Quest quest)
+    {
+        currentQuestSelectedInView = quest;
+        (questAccept.rootVisualElement.Q("GPT_TITLE") as Label).text = quest.questTitle;
+        (questAccept.rootVisualElement.Q("GPT_TXT") as Label).text = quest.questDescription;
+        questAccept.rootVisualElement.Q("AcceptQuest").style.visibility = Visibility.Visible;
     }
 
     void DeclineQuest()
@@ -120,17 +132,22 @@ public class NavController : MonoBehaviour
     {
         questAccept.rootVisualElement.Q("AcceptQuest").style.visibility = Visibility.Hidden;
         //sets the current quest as active
+        GetComponent<PlayerData>().SetCurrentQuest(currentQuestSelectedInView);
     }
 
     void AbandonQuest()
     {
+
         questMenu.rootVisualElement.Q("QuestView").style.visibility = Visibility.Hidden;
         gameObject.GetComponent<PlayerData>().RemoveQuest();
+        Debug.Log("working");
     }
 
     void ContinueQuest()
     {
         questMenu.rootVisualElement.Q("QuestView").style.visibility = Visibility.Hidden;
+        Debug.Log("working");
+
     }
 
 

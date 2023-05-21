@@ -23,6 +23,11 @@ public class PlayerData : MonoBehaviour
         return currentActiveQuest;
     }
 
+    public void SetCurrentQuest(Quest quest)
+    {
+        currentActiveQuest = quest;
+    }
+
     public void RemoveQuest()
     {
         currentActiveQuest = null;
